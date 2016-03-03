@@ -1,0 +1,42 @@
+@import 'bourbon';
+
+@media print {
+  // scss-lint:disable ImportantRule
+  body {
+    background-color: transparent !important;
+    color: #000 !important; // Black prints faster
+    overflow: visible !important;
+    position: absolute !important;
+  }
+
+  body > *,
+  ng-view > *,
+  cl-editor-layout > *,
+  .editor-layout > *,
+  .editor-layout__inner-1 > *,
+  .editor-layout__preview > * {
+    display: none !important;
+  }
+
+  body > ng-view,
+  ng-view > cl-editor-layout,
+  cl-editor-layout > .editor-layout,
+  .editor-layout > .editor-layout__inner-1,
+  .editor-layout__inner-1 > .editor-layout__preview,
+  .editor-layout__preview > cl-preview,
+  .preview {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+  }
+
+  .preview__inner {
+    padding: 0 50px !important;
+  }
+  // scss-lint:enable ImportantRule
+}

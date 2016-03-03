@@ -1,0 +1,162 @@
+@import 'variables';
+@import 'prism';
+@import 'fonts';
+@import 'bourbon';
+
+html {
+  font-family: $font-family;
+  font-weight: 300;
+}
+
+html,
+body {
+  color: $text-color;
+  font-variant-ligatures: common-ligatures;
+  line-height: 1.5;
+
+  @include prefixer(font-smoothing, auto, webkit);
+  @include prefixer(osx-font-smoothing, auto, moz);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+th,
+dt {
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+ul,
+ol,
+dl {
+  margin: 1.2em 0;
+}
+
+ol ul,
+ul ol,
+ul ul,
+ol ol {
+  margin: 0;
+}
+
+a {
+  color: $link-color;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+  font-size: $font-size-monospace;
+
+  * {
+    font-size: inherit;
+  }
+}
+
+blockquote {
+  border-left: 5px solid #eee;
+  color: $ced-color-light;
+  margin-left: 0;
+  padding-left: 2em;
+}
+
+code {
+  background-color: $code-bg;
+  border-radius: $border-radius-base;
+  padding: 2px 4px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid rgba(128, 128, 128, .15);
+  margin: 2em 0;
+}
+
+pre > code {
+  background-color: rgba(0, 0, 0, .02);
+  border: 1px solid rgba(0, 0, 0, .04);
+  display: block;
+  overflow-x: auto;
+  padding: .5em;
+
+  @include prefixer(text-size-adjust, none, webkit);
+}
+
+.toc ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+table {
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 8px 12px;
+}
+
+td {
+  border-top: 1px solid rgba(0, 0, 0, .05);
+}
+
+kbd {
+  background-color: #fff;
+  border: 1px solid rgba(63, 63, 63, .25);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(63, 63, 63, .25);
+  color: #333;
+  display: inline-block;
+  font-size: .7em;
+  margin: 0 .1em;
+  padding: .1em .6em;
+  white-space: nowrap;
+}
+
+abbr {
+  &[title] {
+    border-bottom: 1px dotted #777;
+    cursor: help;
+  }
+}
+
+.footnote {
+  font-size: .8em;
+  position: relative;
+  top: -.25em;
+  vertical-align: top;
+}
+
+.export-container {
+  margin-bottom: 180px;
+  margin-left: auto;
+  margin-right: auto;
+
+  > :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    text-align: justify;
+  }
+}
+
+@media (min-width: 768px) {
+  .export-container {
+    width: 750px;
+  }
+}

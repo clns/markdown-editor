@@ -1,53 +1,5 @@
 var $window = window;
 
-// Create aliases for syntax highlighting
-var Prism = $window.Prism
-;({
-  'js': 'javascript',
-  'json': 'javascript',
-  'html': 'markup',
-  'svg': 'markup',
-  'xml': 'markup',
-  'py': 'python',
-  'rb': 'ruby',
-  'ps1': 'powershell',
-  'psm1': 'powershell'
-}).cl_each(function (name, alias) {
-  Prism.languages[alias] = Prism.languages[name]
-})
-
-var insideFences = {}
-Prism.languages.cl_each(function (language, name) {
-  if (Prism.util.type(language) === 'Object') {
-    insideFences['language-' + name] = {
-      pattern: new RegExp('(`{3}|~{3})' + name + '\\W[\\s\\S]*'),
-      inside: {
-        'cl cl-pre': /(`{3}|~{3}).*/,
-        rest: language
-      }
-    }
-  }
-})
-
-var noSpellcheckTokens = [
-  'code',
-  'pre',
-  'pre gfm',
-  'math block',
-  'math inline',
-  'math expr block',
-  'math expr inline',
-  'latex block'
-].cl_reduce(function (noSpellcheckTokens, key) {
-  noSpellcheckTokens[key] = true
-  return noSpellcheckTokens
-}, Object.create(null))
-Prism.hooks.add('wrap', function (env) {
-  if (noSpellcheckTokens[env.type]) {
-    env.attributes.spellcheck = 'false'
-  }
-})
-
 var editorElt, previewElt, tocElt, previewTextStartOffset
 var prismOptions = {
   insideFences: insideFences

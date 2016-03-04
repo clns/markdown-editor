@@ -22,12 +22,8 @@ require('markdown-it-pandoc-renderer/markdown-it-pandoc-renderer');
 require('markdown-it-sub/dist/markdown-it-sub');
 require('markdown-it-sup/dist/markdown-it-sup');
 
-// https://github.com/PrismJS/prism/issues/593
-require('./vendor/prism');
-require('./vendor/prism.css');
-
-
 require('./scss/app.scss');
 
 var Pagedown = require("exports?Pagedown!./js/pagedown");
 var htmlSanitizer = require("exports?htmlSanitizer!./js/htmlSanitizer");
+require('./js/prism');

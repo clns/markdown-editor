@@ -20,6 +20,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                exclude: /(node_modules|bower_components)/,
                 query: {
                     presets: ['es2015'/*, 'react'*/]
                 }
@@ -48,6 +49,9 @@ module.exports = {
     resolve: {
         // you can now require('file') instead of require('file.coffee')
         extensions: ['', '.js', '.json']
+    },
+    node: {
+        fs: "empty"
     },
     devServer: {
         contentBase: "./public",

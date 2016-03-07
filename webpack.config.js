@@ -20,7 +20,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|vendor)/,
                 query: {
                     presets: ['es2015'/*, 'react'*/]
                 }
@@ -37,7 +37,9 @@ module.exports = {
             {
                 test: /\.(woff|woff2)$/,
                 loader: "url?limit=5000"
-            }
+            },
+            { test: /\.json$/, loader: "json"},
+            { test: /jquery[\\\/]src[\\\/]selector\.js$/, loader: 'amd-define-factory-patcher-loader' }
         ]
     },
     sassLoader: {

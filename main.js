@@ -12,18 +12,11 @@ require('cledit/scripts/cleditUndoMgr');
 require('cledit/scripts/cleditUtils');
 require('cledit/scripts/cleditWatcher');
 require('cledit/demo/mdGrammar');
-require('markdown-it/dist/markdown-it');
-require('markdown-it-abbr/dist/markdown-it-abbr');
-require('markdown-it-deflist/dist/markdown-it-deflist');
-require('markdown-it-emoji/dist/markdown-it-emoji');
-require('markdown-it-footnote/dist/markdown-it-footnote');
-// require('markdown-it-mathjax/markdown-it-mathjax');
-require('markdown-it-pandoc-renderer/markdown-it-pandoc-renderer');
-require('markdown-it-sub/dist/markdown-it-sub');
-require('markdown-it-sup/dist/markdown-it-sup');
 
 require('./scss/app.scss');
 
 var Pagedown = require("exports?Pagedown!./js/pagedown");
 var htmlSanitizer = require("exports?htmlSanitizer!./js/htmlSanitizer");
 require('./js/prism');
+
+require('./js/editor');

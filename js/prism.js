@@ -2,36 +2,54 @@
 require('./../vendor/prism');
 require('./../vendor/prism.css');
 
-var Prism = window.Prism;
+require('cledit/demo/mdGrammar');
+
+export var Prism = window.Prism;
 
 var insideFences = {}
-Prism.languages.cl_each(function (language, name) {
-    if (Prism.util.type(language) === 'Object') {
-        insideFences['language-' + name] = {
-            pattern: new RegExp('(`{3}|~{3})' + name + '\\W[\\s\\S]*'),
-            inside: {
-                'cl cl-pre': /(`{3}|~{3}).*/,
-                rest: language
+for (var name in Prism.languages) {
+    if (Prism.languages.hasOwnProperty(name)) {
+        var language = Prism.languages[name]
+        if (Prism.util.type(language) === 'Object') {
+            insideFences['language-' + name] = {
+                pattern: new RegExp('(`{3}|~{3})' + name + '\\W[\\s\\S]*'),
+                inside: {
+                    'cl cl-pre': /(`{3}|~{3}).*/,
+                    rest: language
+                }
             }
         }
     }
-});
+}
 
-var noSpellcheckTokens = [
-    'code',
-    'pre',
-    'pre gfm',
-    'math block',
-    'math inline',
-    'math expr block',
-    'math expr inline',
-    'latex block'
-].cl_reduce(function (noSpellcheckTokens, key) {
-    noSpellcheckTokens[key] = true
-    return noSpellcheckTokens
-}, Object.create(null))
-Prism.hooks.add('wrap', function (env) {
-    if (noSpellcheckTokens[env.type]) {
-        env.attributes.spellcheck = 'false'
-    }
+// var noSpellcheckTokens = [
+//     'code',
+//     'pre',
+//     'pre gfm',
+//     'math block',
+//     'math inline',
+//     'math expr block',
+//     'math expr inline',
+//     'latex block'
+// ].cl_reduce(function (noSpellcheckTokens, key) {
+//     noSpellcheckTokens[key] = true
+//     return noSpellcheckTokens
+// }, Object.create(null))
+// Prism.hooks.add('wrap', function (env) {
+//     if (noSpellcheckTokens[env.type]) {
+//         env.attributes.spellcheck = 'false'
+//     }
+// });
+
+export var mdGrammar = window.mdGrammar({
+    abbrs: true,
+    deflists: true,
+    dels: true,
+    fences: true,
+    footnotes: true,
+    insideFences: insideFences,
+    subs: true,
+    sups: true,
+    tables: true,
+    tocs: false
 });

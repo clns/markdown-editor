@@ -124,7 +124,7 @@ var ScrollSync = function(clEditorSvc, editorElt, previewElt) {
 
   var previewHeight, previewContentElt, timeoutId
 
-  clScrollSyncSvc = {
+  var clScrollSyncSvc = {
     setEditorElt: function (elt) {
       editorElt = elt
       init()

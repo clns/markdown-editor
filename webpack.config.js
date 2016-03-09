@@ -11,7 +11,7 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, 'public'),
-        publicPath: '/', // This is used to generate URLs to e.g. images
+        publicPath: 'http://localhost:8080/', // This is used to generate URLs to e.g. images
         filename: 'bundle.js'
     },
     devtool: 'source-map',
@@ -22,7 +22,7 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /(node_modules|vendor)/,
                 query: {
-                    presets: ['es2015'/*, 'react'*/]
+                    presets: ['es2015', 'react']
                 }
             },
             {
@@ -35,8 +35,8 @@ module.exports = {
             },
             { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }, // inline base64 URLs for <=8k images, direct URLs for the rest
             {
-                test: /\.(woff|woff2)$/,
-                loader: "url?limit=5000"
+                test: /\.(eot|woff|woff2|ttf|svg)$/,
+                loader: "url?limit=30000"
             },
             { test: /\.json$/, loader: "json"},
             { test: /jquery[\\\/]src[\\\/]selector\.js$/, loader: 'amd-define-factory-patcher-loader' }

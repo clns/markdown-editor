@@ -1,6 +1,6 @@
 // https://github.com/PrismJS/prism/issues/593
-require('./../vendor/prism');
-require('./../vendor/prism.css');
+require('../../vendor/prismjs/prism');
+require('../../vendor/prismjs/prism.css');
 
 require('cledit/demo/mdGrammar');
 

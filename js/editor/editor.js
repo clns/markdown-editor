@@ -1,3 +1,6 @@
+require('../../scss/app.scss');
+require('../../scss/editor.scss');
+
 window.BezierEasing = require('bezier-easing');
 require('clanim/clanim');
 require('imports?this=>window!googlediff/javascript/diff_match_patch_uncompressed'); // Needs to come before cldiffutils and cledit
@@ -24,6 +27,7 @@ import {Prism, mdGrammar} from './prism';
 var htmlSanitizer = require("exports?htmlSanitizer!./htmlSanitizer")
 var ScrollSync = require("exports?ScrollSync!./scrollSync")
 var Keystrokes = require("exports?Keystrokes!./keystrokes")
+var Pagedown = require("exports?Pagedown!./pagedown")
 
 export class Editor {
     constructor(editorElt, previewElt) {

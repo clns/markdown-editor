@@ -930,7 +930,7 @@ commandProto.doCode = function(chunk) {
 	var hasTextBefore = /\S[ ]*$/.test(chunk.before);
 	var hasTextAfter = /^[ ]*\S/.test(chunk.after);
 
-	// Use 'four space' markdown if the selection is on its own
+	// Use 'fenced block' markdown if the selection is on its own
 	// line or is multiline.
 	if ((!hasTextAfter && !hasTextBefore) || /\n/.test(chunk.selection)) {
 
@@ -943,26 +943,19 @@ commandProto.doCode = function(chunk) {
 		var nLinesBack = 1;
 		var nLinesForward = 1;
 
-		if (/(\n|^)(\t|[ ]{4,}).*\n$/.test(chunk.before)) {
-			nLinesBack = 0;
-		}
-		if (/^\n(\t|[ ]{4,})/.test(chunk.after)) {
-			nLinesForward = 0;
-		}
-
 		chunk.skipLines(nLinesBack, nLinesForward);
 
 		if (!chunk.selection) {
-			chunk.startTag = "    ";
+			chunk.startTag = "```\n";
+			chunk.endTag = "\n```";
 			chunk.selection = this.getString("codeexample");
 		} else {
-			if (/^[ ]{0,3}\S/m.test(chunk.selection)) {
-				if (/\n/.test(chunk.selection))
-					chunk.selection = chunk.selection.replace(/^/gm, "    ");
-				else // if it's not multiline, do not select the four added spaces; this is more consistent with the doList behavior
-					chunk.before += "    ";
+			if (/\n```\n{1,2}$/.test(chunk.before) && /^\n{1,2}```\n/.test(chunk.after)) {
+				chunk.before = chunk.before.replace(/```\n{1,2}$/, "");
+				chunk.after = chunk.after.replace(/^\n{1,2}```/, "");
 			} else {
-				chunk.selection = chunk.selection.replace(/^(?:[ ]{4}|[ ]{0,3}\t)/gm, "");
+				chunk.startTag = "```\n";
+				chunk.endTag = "\n```";
 			}
 		}
 	} else {
@@ -1042,6 +1035,7 @@ commandProto.doList = function(chunk, postProcessing, isNumberedList) {
 		chunk.startTag = "";
 		chunk.selection = chunk.selection.replace(/\n[ ]{4}/g, "\n");
 		this.unwrap(chunk);
+		chunk.selection = chunk.selection.replace(/\n\s?([*+-]|\d+[.])\s/, "\n");
 		chunk.skipLines();
 
 		if (hasDigits) {
@@ -1081,9 +1075,10 @@ commandProto.doList = function(chunk, postProcessing, isNumberedList) {
 	chunk.trimWhitespace(true);
 	chunk.skipLines(nLinesUp, nLinesDown, true);
 	chunk.startTag = prefix;
+	chunk.selection = chunk.selection.replace(/\n/g, "\n" + getItemPrefix());
 	var spaces = prefix.replace(/./g, " ");
 	this.wrap(chunk, SETTINGS.lineLength - spaces.length);
-	chunk.selection = chunk.selection.replace(/\n/g, "\n" + spaces);
+	// chunk.selection = chunk.selection.replace(/\n/g, "\n" + spaces);
 
 };
 

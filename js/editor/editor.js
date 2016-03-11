@@ -27,7 +27,7 @@ import {Prism, mdGrammar} from './prism';
 var htmlSanitizer = require("exports?htmlSanitizer!./htmlSanitizer")
 var ScrollSync = require("exports?ScrollSync!./scrollSync")
 var Keystrokes = require("exports?Keystrokes!./keystrokes")
-var Pagedown = require("exports?Pagedown!./pagedown")
+var clPagedown = require("exports?Pagedown!./pagedown")
 
 export class Editor {
     constructor(editorElt, previewElt) {
@@ -113,6 +113,11 @@ export class Editor {
         })
 
         this.cledit = window.cledit(editorElt.firstElementChild, editorElt)
+
+        clEditorSvc.pagedownEditor = new clPagedown({
+            input: Object.create(clEditorSvc.cledit)
+        })
+        clEditorSvc.pagedownEditor.run()
 
         inlineImages.call(this);
 

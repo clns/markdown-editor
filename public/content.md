@@ -1,5 +1,8 @@
 Articles are written in [Markdown](http://daringfireball.net/projects/markdown/) and this site uses [kramdown](http://kramdown.gettalong.org/syntax.html) to parse the code. This page shows all elements that can be used in a page.
 
+- List Item 1
+- List Item 2
+
 ## Basic writing
 
 ### Paragraphs

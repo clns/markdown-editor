@@ -30,7 +30,7 @@ var Keystrokes = require("exports?Keystrokes!./keystrokes")
 var clPagedown = require("exports?Pagedown!./pagedown")
 
 export class Editor {
-    constructor(editorElt, previewElt) {
+    constructor(editorElt, editorInnerElt, previewElt) {
         this.lastExternalChange = 0
         this.scrollOffset = 80
 
@@ -112,7 +112,7 @@ export class Editor {
             cb()
         })
 
-        this.cledit = window.cledit(editorElt.firstElementChild, editorElt)
+        this.cledit = window.cledit(editorInnerElt, editorElt)
 
         clEditorSvc.pagedownEditor = new clPagedown({
             input: Object.create(clEditorSvc.cledit)

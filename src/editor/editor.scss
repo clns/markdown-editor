@@ -1,0 +1,97 @@
+@import "variables";
+@import "markdownHighlighting";
+@import "appearance";
+@import "markdown-normalizer";
+
+/*
+.editor-wrapper should be placed in an element with:
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+*/
+.editor-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.editor,
+.preview {
+  position: absolute;
+  top:0;
+  bottom:0;
+  width:50%;
+  overflow: auto;
+}
+
+.editor__inner {
+  padding: 40px 40px 40px 80px;
+  @media only screen and (max-width: 1300px) {
+    padding: 40px 20px 40px 40px;
+  }
+  @media only screen and (max-width: 960px) {
+    padding: 40px 10px 20px 20px;
+  }
+
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+
+  * {
+    line-height: 1.6;
+  }
+
+  .cledit-section {
+    font-family: inherit;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  &.monospaced {
+    font-family: $font-family-monospace !important;
+    font-size: $font-size-monospace !important;
+
+    * {
+      font-size: inherit !important;
+    }
+  }
+}
+
+.preview {
+  overflow-y: scroll;
+  left:50%;
+
+  //&::-webkit-scrollbar {
+  //  display: none;
+  //}
+
+  img,
+  table {
+    max-width: 100%;
+  }
+}
+
+.preview__inner {
+
+  padding: 40px 80px 40px 40px;
+  @media only screen and (max-width: 1300px) {
+    padding: 40px 20px 40px 40px;
+  }
+  @media only screen and (max-width: 960px) {
+    padding: 40px 10px 20px 20px;
+  }
+
+  margin: 0;
+
+  * {
+    line-height: 1.6;
+  }
+
+  .cl-preview-section > :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    text-align: justify;
+  }
+}

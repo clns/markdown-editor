@@ -1,0 +1,31 @@
+/*
+Make the app full height and stretch last row
+http://stackoverflow.com/a/30875071/1104534
+*/
+.react-root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.page.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/*
+Style header and ribbon sections
+*/
+.page.header {
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #E5E5E5;
+}
+.page.header .menu {
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+.ribbon {
+    background-color: #FAFAFA;
+    padding-top: 10px;
+    /*margin-bottom: 10px;*/
+}

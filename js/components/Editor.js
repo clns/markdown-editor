@@ -19,9 +19,10 @@ export class Editor extends React.Component {
 
     componentDidMount() {
         var editorElt = ReactDOM.findDOMNode(this.refs.editor),
+            editorInnerElt = editorElt.querySelector('.editor__inner'),
             previewElt = ReactDOM.findDOMNode(this.refs.preview)
 
-        this.editor = new _Editor(editorElt, previewElt)
+        this.editor = new _Editor(editorElt, editorInnerElt, previewElt)
 
         var checkUndoRedo = function() {
             this.setState({

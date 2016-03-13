@@ -2,17 +2,15 @@ var path = require('path');
 var webpack = require('webpack');
 var bourbon = require('node-bourbon').includePaths;
 
-var commonsPlugin =
-    new webpack.optimize.CommonsChunkPlugin('common.js');
-
 module.exports = {
-    entry: [
-        './main.js'
-    ],
+    entry: {
+        bundle: './main.js',
+        editor: './src/editor/editor.js'
+    },
     output: {
         path: path.join(__dirname, 'public'),
         publicPath: 'http://localhost:8080/', // This is used to generate URLs to e.g. images
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     devtool: 'source-map',
     module: {
@@ -62,6 +60,6 @@ module.exports = {
         inline: true
     },
     plugins: [
-        commonsPlugin
+        new webpack.optimize.CommonsChunkPlugin('common.js', ['bundle'])
     ]
 };

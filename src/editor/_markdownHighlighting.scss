@@ -1,0 +1,240 @@
+@import 'variables';
+
+.markdown-highlighting {
+  color: $ced-color;
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-font-smoothing: auto;
+
+  .code {
+    font-family: $font-family-monospace;
+    font-size: $font-size-monospace;
+
+    * {
+      font-size: inherit !important;
+    }
+  }
+
+  .pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $font-family-monospace;
+    font-size: $font-size-monospace;
+    word-break: normal;
+
+    [class*='language-'] {
+      color: $ced-color-dark;
+    }
+
+    * {
+      font-size: inherit !important;
+    }
+  }
+
+  span:not(.prism) > .tag > .tag {
+    color: $ced-color;
+    font-family: $font-family-monospace;
+    font-size: $font-size-monospace;
+    font-weight: bold;
+
+    .punctuation,
+    .attr-value,
+    .attr-name {
+      font-weight: normal;
+    }
+
+    * {
+      font-size: inherit !important;
+    }
+  }
+
+  .latex,
+  .math {
+    color: $ced-color;
+  }
+
+  .entity {
+    color: $ced-color;
+    font-family: $font-family-monospace;
+    font-size: $font-size-monospace;
+    font-style: italic;
+
+    * {
+      font-size: inherit !important;
+    }
+  }
+
+  //.table {
+  //  font-family: $font-family-monospace;
+  //  font-size: $font-size-monospace;
+  //
+  //  * {
+  //    font-size: inherit !important;
+  //  }
+  //}
+
+  .comment {
+    color: $ced-color-lighter;
+  }
+
+  :not(.prism) > .keyword {
+    color: $ced-color-dark;
+    font-weight: bold;
+  }
+
+  .code,
+  .img,
+  .img-wrapper,
+  .imgref,
+  .cl-toc {
+    background-color: $code-bg;
+    border-radius: $border-radius-base;
+    padding: .15em 0;
+  }
+
+  .img-wrapper {
+    //display: inline-block;
+
+    .img {
+      display: inline-block;
+      padding: 0;
+    }
+
+    img {
+      max-width: 100%;
+      padding: 0 .15em;
+    }
+  }
+
+  .cl-toc {
+    font-size: 2.8em;
+    padding: .15em;
+  }
+
+  .blockquote {
+    color: $ced-color-light;
+  }
+
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-weight: bold;
+  }
+
+  .h1,
+  .h11 {
+    font-size: 2.25em;
+  }
+
+  .h2,
+  .h22 {
+    font-size: 1.75em;
+  }
+
+  .h3 {
+    font-size: 1.5em;
+  }
+
+  .h4 {
+    font-size: 1.25em;
+  }
+
+  .h5 {
+    font-size: 1em;
+  }
+
+  .h6 {
+    font-size: 1em;
+    color: $ced-color-light;
+  }
+
+  .cl-hash {
+    color: $ced-color-lighter;
+  }
+
+  .cl,
+  .hr {
+    color: $ced-color-lighter;
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  .em,
+  .em .cl {
+    font-style: italic;
+  }
+
+  .strong,
+  .strong .cl,
+  .term {
+    font-weight: bold;
+  }
+
+  .cl-del-text {
+    text-decoration: line-through;
+  }
+
+  .email,
+  .cl-underlined-text {
+    text-decoration: underline;
+  }
+
+  .linkdef .url {
+    color: $ced-color-lighter;
+  }
+
+  .url {
+    color: $link-color;
+  }
+
+  .fn,
+  .inlinefn,
+  .sup {
+    font-size: smaller;
+    position: relative;
+    top: -.5em;
+  }
+
+  .sub {
+    bottom: -.25em;
+    font-size: smaller;
+    position: relative;
+  }
+
+  .img,
+  .imgref,
+  .link,
+  .linkref {
+    color: $ced-color-light;
+
+    .cl-underlined-text {
+      color: $ced-color-dark;
+    }
+  }
+
+  .link .cl-underlined-text {
+    text-decoration: none;
+    color: $link-color;
+  }
+
+  .cl-title {
+    color: $ced-color;
+  }
+}
+
+.markdown-highlighting--inline {
+  .h1,
+  .h11,
+  .h2,
+  .h22,
+  .h3,
+  .h4,
+  .h5,
+  .h6,
+  .cl-toc {
+    font-size: inherit;
+  }
+}

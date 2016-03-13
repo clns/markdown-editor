@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "build": "webpack --progress --profile --colors",
-    "dev": "webpack-dev-server --progress --profile --colors --hot"
+    "dev": "webpack-dev-server --progress --profile --colors --hot --host 0.0.0.0"
   },
   "dependencies": {
     "bezier-easing": "^1.1.1",

@@ -1,7 +1,6 @@
 Articles are written in [Markdown](http://daringfireball.net/projects/markdown/) and this site uses [kramdown](http://kramdown.gettalong.org/syntax.html) to parse the code. This page shows all elements that can be used in a page.
 
-- List Item 1
-- List Item 2
+[google](http://google.com
 
 ## Basic writing
 
@@ -489,3 +488,15 @@ $ say "I'll be back!"
 ```sh
 $ echo $PATH
 ```
+
+# Heading 1
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6

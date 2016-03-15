@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <title>Markdown Editor Layout</title>
+
+    <link rel="stylesheet" href="//rawgit.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css">
+
+    <script src="editor.js"></script>
+
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body style="height: 100%; margin: 0; padding: 0;">
+<div style="height: 100%; position: relative;">
+<div class="editor">
+    <pre class="editor__inner markdown-highlighting"></pre>
+</div>
+<div class="preview markdown-body">
+    <div class="preview__inner" tabIndex="0"></div>
+</div>
+</div>
+
+<script>
+    var editorElt = document.querySelector('.editor'),
+            editorInnerElt = editorElt.querySelector('.editor__inner'),
+            previewElt = document.querySelector('.preview'),
+            previewInnerElt = previewElt.querySelector('.preview__inner');
+
+    var editor = new window.Editor(editorElt, editorInnerElt, previewElt, previewInnerElt);
+</script>
+</body>
+
+</html>

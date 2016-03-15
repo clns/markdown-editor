@@ -29,3 +29,38 @@ Style header and ribbon sections
     padding-top: 10px;
     /*margin-bottom: 10px;*/
 }
+
+/*
+Make toolbar menu larger icons and smaller paddings
+*/
+.toolbar.segment {
+    padding: 0.5em;
+    position: absolute;
+    top:0;
+    left:0;
+    right:50%;
+    z-index:1;
+    margin: 0 10px 0 0;
+}
+.toolbar .menu {
+    min-height: auto;
+    box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.08) !important;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.toolbar .menu .item {
+    padding: 0.6em 0.4em;
+}
+.toolbar .menu .icon {
+    font-size: 1.1em;
+}
+.toolbar .divider {
+    width: 0.6em;
+}
+
+/*
+Fix semantic
+*/
+.ui.icon.menu .item.disabled {
+    color: rgba(40, 40, 40, 0.3);
+}

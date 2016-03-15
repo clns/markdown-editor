@@ -1,3 +1,148 @@
+class Toolbar extends React.Component {
+    doHelp() {
+        console.log('help')
+    }
+    render() {
+        var btnProps = {onClick: onClick.bind(this)};
+
+        var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+        var title = function(text) {
+            return text.replace('KEY', isMac ? 'Cmd' : 'Ctrl');
+        }
+
+        return (
+            <div className="ui basic center aligned segment toolbar">
+                <div className="ui compact icon borderless small menu">
+                    <Button action="bold" icon="bold" title={title('Bold (KEY+B)')} {...btnProps}/>
+                    <Button action="italic" icon="italic" title={title('Italic (KEY+I)')} {...btnProps}/>
+                    <div className="divider"></div>
+                    <Button action="quote" icon="quote right" title={title('Blockquote (KEY+Q)')} {...btnProps}/>
+                    <Button action="code" icon="code" title={title('Code (KEY+K)')} {...btnProps}/>
+                    <Button action="link" icon="linkify" title={title('Link (KEY+L)')} {...btnProps}/>
+                    <Button action="image" icon="file image outline" title={title('Image (KEY+G)')} {...btnProps}/>
+                    <Button action="table" icon="table" title={title('Table (KEY+T)')} {...btnProps}/>
+                    <Button action="o list" icon="ordered list" title={title('Ordered List (KEY+O)')} {...btnProps}/>
+                    <Button action="u list" icon="unordered list" title={title('Unordered List (KEY+U)')} {...btnProps}/>
+                    <Button action="header" icon="header" title={title('Heading (KEY+H)')} {...btnProps}/>
+                    <Button action="hr" icon="minus" title={title('Horizontal Line (KEY+R)')} {...btnProps}/>
+                    <div className="divider"></div>
+                    <Button disabled={!this.props.canUndo} action="undo" icon="undo" title={title('Undo (KEY+Z)')} {...btnProps}/>
+                    <Button disabled={!this.props.canRedo} action="redo" icon="repeat" title={title('Redo (KEY+Shift+Z)')} {...btnProps}/>
+                </div>
+            </div>
+        )
+    }
+}
+
+Toolbar.propTypes = {
+    canUndo: React.PropTypes.bool.isRequired,
+    canRedo: React.PropTypes.bool.isRequired,
+    doBold: React.PropTypes.func,
+    doItalic: React.PropTypes.func,
+    doQuote: React.PropTypes.func,
+    doCode: React.PropTypes.func,
+    doLink: React.PropTypes.func,
+    doImage: React.PropTypes.func,
+    doTable: React.PropTypes.func,
+    doOList: React.PropTypes.func,
+    doUList: React.PropTypes.func,
+    doHeader: React.PropTypes.func,
+    doHr: React.PropTypes.func
+};
+
+function onClick(action) {
+    action = 'do'+ucwords(action);
+    if (this.props[action]) {
+        this.props[action]();
+    } else {
+        alert('no action defined')
+    }
+}
+
+function ucwords(text) {
+    return (text + '')
+        .toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+            return $1.toUpperCase()
+        })
+        .replace(/\s/g, '')
+}
+
+class Button extends React.Component {
+    onClick() {
+        if (this.props.onClick) {
+            this.props.onClick(this.props.action);
+        }
+    }
+    render() {
+        return (
+            <a className={'item' + (this.props.disabled?' disabled':'')}
+               onClick={this.onClick.bind(this)} title={this.props.title}>
+                <i className={this.props.icon+' icon'}/>
+            </a>
+        )
+    }
+}
+
+Button.propTypes = {
+    disabled: React.PropTypes.bool,
+    action: React.PropTypes.string.isRequired,
+    icon: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func
+}
+
+class Link extends React.Component {
+    componentDidMount() {
+        $(ReactDOM.findDOMNode(this)).modal({
+            detachable: false,
+            context: '.dimmable',
+            onHidden: () => {
+                if (this._cb) {
+                    this._cb(null)
+                    delete this._cb
+                }
+            },
+            onApprove: () => {
+                this._cb(this.refs.link.value)
+                delete this._cb
+            }
+        });
+    }
+
+    componentDidUpdate() {
+        $(ReactDOM.findDOMNode(this)).modal('refresh');
+    }
+
+    show(cb) {
+        this._cb = cb;
+        $(ReactDOM.findDOMNode(this)).modal('show');
+    }
+
+    render() {
+        return (
+            <div className="ui small modal">
+                <div className="header">
+                    Insert Link
+                </div>
+                <div className="content">
+                    <div className="ui form ">
+                        <div className="field">
+                            <label>URL</label>
+                            <input ref="link" type="text"></input>
+                        </div>
+                    </div>
+                </div>
+                <div className="actions">
+                    <div className="ui positive button">OK</div>
+                    <div className="ui cancel button">Cancel</div>
+                </div>
+            </div>
+        )
+    }
+}
+
 class User extends React.Component {
 
     constructor(props) {
@@ -41,8 +186,56 @@ class User extends React.Component {
     }
 
     render() {
+
+        var toolbarProps = {
+            canUndo: this.state.canUndo,
+            canRedo: this.state.canRedo,
+            doBold: () => {
+                this.editor.pagedownEditor.uiManager.doClick('bold')
+            },
+            doItalic: () => {
+                this.editor.pagedownEditor.uiManager.doClick('italic')
+            },
+            doQuote: () => {
+                this.editor.pagedownEditor.uiManager.doClick('quote')
+            },
+            doCode: () => {
+                this.editor.pagedownEditor.uiManager.doClick('code')
+            },
+            doLink: (link) => {
+                this.editor.pagedownEditor.uiManager.doClick('link')
+            },
+            doImage: () => {
+                this.editor.pagedownEditor.uiManager.doClick('image')
+            },
+            doTable: () => {
+                this.editor.pagedownEditor.uiManager.doClick('table')
+            },
+            doOList: () => {
+                this.editor.pagedownEditor.uiManager.doClick('olist')
+            },
+            doUList: () => {
+                this.editor.pagedownEditor.uiManager.doClick('ulist')
+            },
+            doHeader: () => {
+                this.editor.pagedownEditor.uiManager.doClick('heading')
+            },
+            doHr: () => {
+                this.editor.pagedownEditor.uiManager.doClick('hr')
+            },
+            doUndo: () => {
+                this.editor.cledit.undoMgr.undo()
+            },
+            doRedo: () => {
+                this.editor.cledit.undoMgr.redo()
+            }
+        };
+
+        console.log('rendering')
+
         return (
             <div className="react-root dimmable">
+                <Link ref="link"/>
                 <div className="page header">
                     <div className="ui container">
                         <div className="ui right floated text menu">
@@ -94,6 +287,7 @@ class User extends React.Component {
                 </div>
                 <div className="page content">
                     <div className="editor-wrapper">
+                        <Toolbar {...toolbarProps}/>
                         <div className="editor">
                             <pre className="editor__inner markdown-highlighting"></pre>
                         </div>

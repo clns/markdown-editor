@@ -31,7 +31,7 @@ var clPagedown = require("exports?Pagedown!./pagedown")
 export class Editor {
     constructor(editorElt, editorInnerElt, previewWrapperElt, previewElt) {
         this.lastExternalChange = 0
-        this.scrollOffset = 40
+        this.scrollOffset = 0
 
         var md = this.markdown = new MarkdownIt({
             html: true,

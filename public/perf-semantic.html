@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <title>Semantic - Markdown Editor Layout</title>
+
+    <link rel="stylesheet" href="https://rawgit.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
+    <link href="design.css" rel="stylesheet">
+
+    <!--<script src="https://code.jquery.com/jquery-2.2.1.js" integrity="sha256-eNcUzO3jsv0XlJLveFEkbB8bA7/CroNpNVk3XpmnwHc=" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.js"></script>-->
+
+    <script src="editor.js"></script>
+
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="react-root dimmable">
+    <div class="ui small modal">
+        <div class="header">
+            Insert Link
+        </div>
+        <div class="content">
+            <div class="ui form ">
+                <div class="field">
+                    <label>URL</label>
+                    <input type="text"/>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui positive button">OK</div>
+            <div class="ui cancel button">Cancel</div>
+        </div>
+    </div>
+    <div class="page header">
+        <div class="ui container">
+            <div class="ui right floated text menu">
+                <a class="item">
+                    Commit
+                    <div class="ui label">51</div>
+                </a>
+                <div class="ui right dropdown item">
+                    <i class="github large icon"></i>
+                    Test
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="item">Applications</div>
+                        <div class="item">International Students</div>
+                        <div class="item">Scholarships</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui text menu">
+                <a class="icon item" href="/">
+                    <i class="large emphasized  medium icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page ribbon">
+        <div class="ui container">
+            <div class="ui small breadcrumb">
+                <i class="disabled folder open outline icon"></i>
+                <div class="section">_articles</div>
+                <div class="divider"> / </div>
+                <div class="section">develop-on-site-stacker</div>
+                <div class="divider"> / </div>
+                <div class="active section">branching-and-release-workflow.md</div>
+            </div>
+        </div>
+        <div class="ui tabular small menu">
+            <div class="ui container">
+                <a class="active item">
+                    <i class="code icon"></i>
+                    Content
+                </a>
+                <a class="item">
+                    <i class="options icon"></i>
+                    YAML Front Matter
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page content">
+        <div class="editor-wrapper">
+            <div class="ui basic center aligned segment toolbar">
+                <div class="ui compact icon borderless small menu">
+                    <a class="item" title="Bold (KEY+B)"><i class="bold icon"></i></a>
+                    <a class="item" title="Italic (KEY+I)"><i class="italic icon"></i></a>
+                    <div class="divider"></div>
+                    <a class="item" title="Blockquote (KEY+Q)"><i class="quote right icon"></i></a>
+                    <a class="item" title="Code (KEY+K)"><i class="code icon"></i></a>
+                    <a class="item" title="Link (KEY+L)"><i class="linkify icon"></i></a>
+                    <a class="item" title="Image (KEY+G)"><i class="file image outline icon"></i></a>
+                    <a class="item" title="Table (KEY+T)"><i class="table icon"></i></a>
+                    <a class="item" title="Ordered List (KEY+O)"><i class="ordered list icon"></i></a>
+                    <a class="item" title="Unordered List (KEY+U)"><i class="unordered list icon"></i></a>
+                    <a class="item" title="Heading (KEY+H)"><i class="header icon"></i></a>
+                    <a class="item" title="Horizontal Line (KEY+R)"><i class="minus icon"></i></a>
+                    <div class="divider"></div>
+                    <a class="item" title="Undo (KEY+Z)"><i class="undo icon"></i></a>
+                    <a class="item" title="Redo (KEY+Shift+Z)"><i class="repeat icon"></i></a>
+                </div>
+            </div>
+            <div class="editor">
+                <pre class="editor__inner markdown-highlighting"></pre>
+            </div>
+            <div class="preview markdown-body">
+                <div class="preview__inner" tabIndex="0"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var editorElt = document.querySelector('.editor'),
+            editorInnerElt = editorElt.querySelector('.editor__inner'),
+            previewElt = document.querySelector('.preview'),
+            previewInnerElt = previewElt.querySelector('.preview__inner');
+
+    var editor = new window.Editor(editorElt, editorInnerElt, previewElt, previewInnerElt);
+
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                editor.setContent(httpRequest.responseText, true);
+            } else {
+                console.error('There was a problem with the request.');
+            }
+        }
+    };
+    httpRequest.open('GET', 'content.md');
+    httpRequest.send();
+</script>
+</body>
+
+</html>

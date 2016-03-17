@@ -140,6 +140,7 @@ export class Editor {
             // scope.currentFileDao.contentDao.text = clEditorSvc.cledit.getContent()
             saveState()
             clEditorSvc.lastContentChange = Date.now()
+            clEditorSvc.triggerWatchAction('sectionList')
             // scope.$apply()
         }, 10)
 
@@ -312,7 +313,10 @@ export class Editor {
                 clEditorSvc.previewText = previewElt.textContent
                 clEditorSvc.lastPreviewRefreshed = Date.now()
                 debouncedTextToPreviewDiffs()
-                clEditorSvc.triggerWatchAction('lastPreviewRefreshed')
+                setTimeout(function() {
+                    clEditorSvc.triggerWatchAction('lastPreviewRefreshed')
+                }, 50);
+
                 // $rootScope.$apply()
             }
         }

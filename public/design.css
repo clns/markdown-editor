@@ -8,9 +8,9 @@ http://stackoverflow.com/a/30875071/1104534
     flex-direction: column;
 }
 .page.content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    position: relative;
+    flex:1;
+    overflow: hidden;
 }
 
 /*

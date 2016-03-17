@@ -4,17 +4,9 @@
 @import "markdown-normalizer";
 
 /*
-.editor-wrapper should be placed in an element with:
-
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-
-*/
-.editor-wrapper {
-  flex: 1;
+The .editor and .preview elements should be inside an element with
   position: relative;
-}
+*/
 
 .editor,
 .preview {
@@ -63,7 +55,7 @@
 
 .preview {
   overflow-y: scroll;
-  left:50%;
+  right:0;
 
   //&::-webkit-scrollbar {
   //  display: none;

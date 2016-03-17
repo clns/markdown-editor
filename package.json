@@ -23,8 +23,8 @@
     "markdown-it-sup": "^1.0.0",
     "node-bourbon": "^4.2.3",
     "prismjs": "^1.4.1",
-    "react": "^15.0.0-rc.1",
-    "react-dom": "^15.0.0-rc.1",
+    "react": "^15.0.0-rc.2",
+    "react-dom": "^15.0.0-rc.2",
     "sizzle": "^2.3.0"
   },
   "devDependencies": {

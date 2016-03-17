@@ -182,6 +182,24 @@ class User extends React.Component {
     setContent(content) {
         if (this.editor) {
             this.editor.setContent(content, true)
+
+            this.editor.cledit.setSelection(231, 231);
+
+            var t1 = 2000,
+                t2 = 550;
+
+            console.log('preparing to enter content in %d', t1)
+            setTimeout(() => {
+
+                this.editor.cledit.replace(231, 231, 'a');
+
+                console.log('preparing to enter content in %d', t2)
+                setTimeout(() => {
+                    this.editor.cledit.replace(232, 232, 'a');
+                }, t2)
+
+            }, t1);
+
         }
     }
 
@@ -231,8 +249,6 @@ class User extends React.Component {
             }
         };
 
-        console.log('rendering')
-
         return (
             <div className="react-root dimmable">
                 <Link ref="link"/>
@@ -274,26 +290,24 @@ class User extends React.Component {
                     </div>
                     <div className="ui tabular small menu">
                         <div className="ui container">
+                            <a className="item">
+                                <i className="options icon"></i>
+                                Variables
+                            </a>
                             <a className="active item">
                                 <i className="code icon"></i>
                                 Content
-                            </a>
-                            <a className="item">
-                                <i className="options icon"></i>
-                                YAML Front Matter
                             </a>
                         </div>
                     </div>
                 </div>
                 <div className="page content">
-                    <div className="editor-wrapper">
-                        <Toolbar {...toolbarProps}/>
-                        <div className="editor">
-                            <pre className="editor__inner markdown-highlighting"></pre>
-                        </div>
-                        <div className="preview markdown-body">
-                            <div className="preview__inner" tabIndex="0"></div>
-                        </div>
+                    <Toolbar {...toolbarProps}/>
+                    <div className="editor">
+                        <pre className="editor__inner markdown-highlighting"></pre>
+                    </div>
+                    <div className="preview markdown-body">
+                        <div className="preview__inner" tabIndex="0"></div>
                     </div>
                 </div>
             </div>

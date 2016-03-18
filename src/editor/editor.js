@@ -27,6 +27,7 @@ var htmlSanitizer = require("exports?htmlSanitizer!./htmlSanitizer")
 var ScrollSync = require("exports?ScrollSync!./scrollSync")
 var Keystrokes = require("exports?Keystrokes!./keystrokes")
 var clPagedown = require("exports?Pagedown!./pagedown")
+import {rootScope} from './scope'
 
 export class Editor {
     constructor(editorElt, editorInnerElt, previewWrapperElt, previewElt) {
@@ -67,7 +68,7 @@ export class Editor {
             return '<sup class="footnote-ref"><a href="#fn' + n + '" id="' + id + '">' + n + '</a></sup>'
         }
 
-        var clEditorSvc = this;
+        var clEditorSvc = rootScope.editorSvc = this;
         var diffMatchPatch = new window.diff_match_patch()
         var parsingCtx = {}, conversionCtx,
             tokens
@@ -140,8 +141,7 @@ export class Editor {
             // scope.currentFileDao.contentDao.text = clEditorSvc.cledit.getContent()
             saveState()
             clEditorSvc.lastContentChange = Date.now()
-            clEditorSvc.triggerWatchAction('sectionList')
-            // scope.$apply()
+            rootScope.$apply()
         }, 10)
 
         function refreshPreview () {
@@ -153,7 +153,7 @@ export class Editor {
         var debouncedRefreshPreview = window.cledit.Utils.debounce(function () {
             // if (!isDestroyed()) {
                 refreshPreview()
-                // scope.$apply()
+                rootScope.$apply()
             // }
         }, 20)
 
@@ -202,7 +202,6 @@ export class Editor {
                 htmlSectionDiff: htmlSectionDiff
             }
             clEditorSvc.lastConversion = Date.now()
-            clEditorSvc.triggerWatchAction('lastConversion')
         };
 
         clEditorSvc.refreshPreview = function () {
@@ -313,11 +312,7 @@ export class Editor {
                 clEditorSvc.previewText = previewElt.textContent
                 clEditorSvc.lastPreviewRefreshed = Date.now()
                 debouncedTextToPreviewDiffs()
-                setTimeout(function() {
-                    clEditorSvc.triggerWatchAction('lastPreviewRefreshed')
-                }, 50);
-
-                // $rootScope.$apply()
+                rootScope.$apply()
             }
         }
 
@@ -330,7 +325,7 @@ export class Editor {
                 }
             })
             clEditorSvc.lastTextToPreviewDiffs = Date.now()
-            // $rootScope.$apply()
+            rootScope.$apply()
         }, 50)
 
         var getEditorOffset = function (previewOffset) {
@@ -381,7 +376,7 @@ export class Editor {
                         clEditorSvc.cledit.selectionMgr.setSelectionStartEnd(editorStartOffset, editorEndOffset, false)
                     }
                 }
-                // $rootScope.$apply()
+                rootScope.$apply()
             }
         }, 50)
 
@@ -474,17 +469,6 @@ export class Editor {
             // normalizeTocDimensions()
 
             clEditorSvc.lastSectionMeasured = Date.now()
-            clEditorSvc.triggerWatchAction('lastSectionMeasured')
-        }
-
-        var watchListeners = [];
-        clEditorSvc.addWatchListener = function(cb) {
-            watchListeners.push(cb);
-        }
-        clEditorSvc.triggerWatchAction = function(action) {
-            watchListeners.forEach(function(cb) {
-                cb.call(this, action);
-            }, clEditorSvc);
         }
 
         clEditorSvc.cledit.on('contentChanged', function (content, sectionList) {
@@ -509,11 +493,11 @@ export class Editor {
         var debouncedMeasureSectionDimension = window.cledit.Utils.debounce(function () {
             // if (!isDestroyed()) {
                 clEditorSvc.measureSectionDimensions()
-                // scope.$apply()
+                rootScope.$apply()
             // }
         }, 500)
 
-        clEditorSvc.addWatchListener(function(a) {a == 'lastPreviewRefreshed' && onPreviewRefreshed()})
+        rootScope.$watch('editorSvc.lastPreviewRefreshed', onPreviewRefreshed)
 
         var options = {
             highlighter: function(text) {

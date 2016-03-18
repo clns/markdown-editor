@@ -1,6 +1,6 @@
 // http://teropa.info/blog/2013/11/03/make-your-own-angular-part-1-scopes-and-digest.html
 
-export default var rootScope = new Scope();
+export const rootScope = new Scope();
 
 export function Scope() {
     this.$$watchers = [];
@@ -58,7 +58,8 @@ Scope.prototype.$$digestOnce = function() {
 };
 
 Scope.prototype.$digest = function() {
-    var ttl = maxTTL = 10;
+    var ttl = 10;
+    var maxTTL = ttl;
     var dirty;
     this.$beginPhase("$digest");
     do {
@@ -81,7 +82,7 @@ Scope.prototype.$digest = function() {
 
 
 Scope.prototype.$eval = function(expr, locals) {
-    return expr(this, locals);
+    return expr && expr(this, locals);
 };
 
 Scope.prototype.$evalAsync = function(expr) {

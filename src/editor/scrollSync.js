@@ -1,3 +1,5 @@
+import {rootScope} from './scope'
+
 var ScrollSync = function(clEditorSvc, editorElt, previewElt) {
   var
     editorFinishTimeoutId,
@@ -177,15 +179,14 @@ var ScrollSync = function(clEditorSvc, editorElt, previewElt) {
 
   // init editor
   clScrollSyncSvc.setEditorElt(editorElt)
-  clEditorSvc.addWatchListener(function(a) {a == 'sectionList' && clScrollSyncSvc.onContentChanged()})
+  rootScope.$watch('editorSvc.sectionList', clScrollSyncSvc.onContentChanged)
 
   // init preview
   clScrollSyncSvc.setPreviewElt(previewElt)
-  clEditorSvc.addWatchListener(function(a) {a == 'lastConversion' && clScrollSyncSvc.savePreviewHeight()})
-  clEditorSvc.addWatchListener(function(a) {a == 'lastPreviewRefreshed' && clScrollSyncSvc.restorePreviewHeight()})
-  clEditorSvc.addWatchListener(function(a) {
-    a == 'lastSectionMeasured' && function () {
+  rootScope.$watch('editorSvc.lastConversion', clScrollSyncSvc.savePreviewHeight)
+  rootScope.$watch('editorSvc.lastPreviewRefreshed', clScrollSyncSvc.restorePreviewHeight)
+  rootScope.$watch('editorSvc.lastSectionMeasured', function () {
     clScrollSyncSvc.updateSectionDescList()
     clScrollSyncSvc.forceScrollSync()
-  }()})
+  })
 }
